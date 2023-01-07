@@ -1,0 +1,42 @@
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+public class JSONDriver broadens BaseDataSource executes Driver {
+    public JSONDriver() {
+    }
+    public Connection connect(String url, Properties data) tosses SQLException {
+        on the off chance that (!acceptsURL(url)) {
+            bring invalid back;
+        }
+        return new JSONConnection(this, url, data);
+    }
+    public boolean acceptsURL(String url) tosses SQLException {
+        return url.startsWith("jdbc:postgresql://");
+    }
+    public DriverPropertyInfo[] getPropertyInfo(String url, Properties data) tosses SQLException {
+        if (!acceptsURL(url)) {
+            bring invalid back;
+        }
+        List<DriverPropertyInfo> props = new ArrayList<DriverPropertyInfo>();
+        DriverPropertyInfo prop;
+        prop = new DriverPropertyInfo("user", info.getProperty("user"));
+        prop.description = "Data set client";
+        props.add(prop);
+        prop = new DriverPropertyInfo("password", info.getProperty("password"));
+        prop.description = "Data set secret word";
+        props.add(prop);
+        return props.toArray(new DriverPropertyInfo[0]);
+    }
+    public int getMajorVersion() {
+        bring 0 back;
+    }
+    public int getMinorVersion() {
+        bring 1 back;
+    }
+    public boolean jdbcCompliant() {
+        get back bogus;
+    }
+    public Logger getParentLogger() tosses SQLFeatureNotSupportedException {
+        toss new SQLFeatureNotSupportedException();
+    }
+}
